@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.core.validators import MinValueValidator
+from django.urls import reverse
 
 
 class Author(models.Model):
@@ -51,6 +52,12 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.name.title()}: {self.content[:20]}'
+
+    def get_absolute_url(self):
+        if self.type == "NW":
+            return reverse('news_detail', args=[str(self.id)])
+        else:
+            return reverse('articles_detail', args=[str(self.id)])
 
     class Meta:
         ordering = ['timestamp']
