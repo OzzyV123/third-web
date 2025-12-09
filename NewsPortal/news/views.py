@@ -6,6 +6,7 @@ from .forms import PostForm
 from .models import Post
 from .filters import *
 
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 class PostList(ListView):
     model = Post
@@ -35,37 +36,41 @@ class PostSearch(ListView):
         context['filterset'] = self.filterset
         return context
 
-class NewsCreate(CreateView):
+class NewsCreate(PermissionRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = 'post_edit.html'
+    permission_required = ('news.add_news',)
     def form_valid(self, form):
         post = form.save(commit=False)
         post.type = "NW"
         return super().form_valid(form)
 
-class ArticleCreate(CreateView):
+class ArticleCreate(PermissionRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = 'post_edit.html'
+    permission_required = ('news.add_news',)
     def form_valid(self, form):
         post = form.save(commit=False)
         post.type = "AR"
         return super().form_valid(form)
 
-class NewsUpdate(UpdateView):
+class NewsUpdate(PermissionRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'post_edit.html'
+    permission_required = ('news.add_news',)
     def form_valid(self, form):
         post = form.save(commit=False)
         post.type = "NW"
         return super().form_valid(form)
 
-class ArticleUpdate(UpdateView):
+class ArticleUpdate(PermissionRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'post_edit.html'
+    permission_required = ('news.add_news',)
     def form_valid(self, form):
         post = form.save(commit=False)
         post.type = "AR"

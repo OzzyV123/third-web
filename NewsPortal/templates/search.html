@@ -6,7 +6,7 @@
 {{ flatpage.title }}
 {% endblock title %}
 
-{% block content %}
+{% block defcontent %}
 <h3>Поиск нововстей</h3>
 
 <form action="" method="get">
@@ -54,4 +54,4 @@
            <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
        {% endif %}
    {% endif %}
-{% endblock content %}
+{% endblock defcontent %}

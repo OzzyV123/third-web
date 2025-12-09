@@ -6,8 +6,8 @@
 Post
 {% endblock title %}
 
-{% block content %}
+{% block defcontent %}
 <h1>{{ post.name }}</h1>
 <h3>{{ post.timestamp|date:"d.m.Y" }}</h3>
 {{ post.content|censor }}
-{% endblock content %}
+{% endblock defcontent %}

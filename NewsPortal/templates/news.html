@@ -6,7 +6,7 @@
 {{ flatpage.title }}
 {% endblock title %}
 
-{% block content %}
+{% block defcontent %}
 <h3>Все новости:</h3>
 {% if posts %}
     <table>
@@ -48,4 +48,4 @@
            <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
        {% endif %}
    {% endif %}
-{% endblock content %}
+{% endblock defcontent %}
