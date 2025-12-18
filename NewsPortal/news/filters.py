@@ -10,4 +10,4 @@ class NewsFilter(django_filters.FilterSet):
     )
     class Meta:
         model = Post
-        fields = ['name', 'author', 'timestamp__gte']
+        fields = ['name', 'author', 'category', 'timestamp__gte']

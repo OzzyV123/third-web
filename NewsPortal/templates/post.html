@@ -10,4 +10,11 @@ Post
 <h1>{{ post.name }}</h1>
 <h3>{{ post.timestamp|date:"d.m.Y" }}</h3>
 {{ post.content|censor }}
+<hr>
+{% if not is_not_author %}
+<button> <a href="{{ post.id }}/edit">Редактировать</a> </button>
+<button> <a href="{{ post.id }}/delete">Удалить</a> </button>
+{% endif %}
+<br><br>
+<button> <a href="/posts">Назад</a> </button>
 {% endblock defcontent %}

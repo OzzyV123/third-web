@@ -1,39 +1,27 @@
 {% extends 'flatpages/default.html' %}
 
 {% block title %}
-{{ flatpage.title }}
+Categories
 {% endblock title %}
 
 {% block defcontent %}
 <hr>
-<button> <a href="category">Категории</a> </button>
-<button> <a href="search">Поиск</a> </button>
-<h3>Все новости:</h3>
-{% if posts %}
+<h3>Все категории:</h3>
+
     <table>
            <tr>
                <td>Название</td>
-               <td>Дата публикации</td>
-               <td>Часть текста</td>
            </tr>
 
-           {% for post in posts %}
+           {% for category in categories %}
            <tr>
-               <td><a href="news/{{ post.id }}">{{ post.name }}</a></td>
-               <td>{{ post.timestamp|date:"d.m.Y" }}</td>
-               <td>{{ post.content|truncatechars:20 }}</td>
+               <td><a href="{{ category.id }}">{{ category.name }}</a></td>
            </tr>
            {% endfor %}
 
     </table>
-{% else %}
-    <h2>Новостей нет!</h2>
-{% endif %}
-
-{% if not is_not_author %}
-<button> <a href="news/create">Добавить новость</a> </button>
-<button> <a href="articles/create">Добавить статью</a> </button>
-{% endif %}
+<br>
+<button> <a href="/posts">Назад</a> </button>
 <hr>
 {% if page_obj.has_previous %}
        <a href="?page=1">1</a>

@@ -13,4 +13,8 @@ urlpatterns = [
    path('articles/<int:pk>/edit/', ArticleUpdate.as_view(), name='article_update'),
    path('news/<int:pk>/delete', PostDelete.as_view(), name='news_delete'),
    path('articles/<int:pk>/delete', PostDelete.as_view(), name='article_delete'),
+   path('category/', CategoryList.as_view(), name = 'category_list'),
+   path('category/<int:category_id>/', category_view, name = 'category_detail'),
+   path('category/<int:category_id>/subscribe/', subscribe_category, name='subscribe_category'),
+   path('category/<int:category_id>/unsubscribe/', unsubscribe_category, name='unsubscribe_category'),
 ]

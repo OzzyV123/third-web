@@ -3,9 +3,12 @@ from django.urls import reverse_lazy
 from django.views.generic import *
 
 from .forms import PostForm
-from .models import Post
+from .models import *
 from .filters import *
+from .utils import *
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 class PostList(ListView):
@@ -80,3 +83,43 @@ class PostDelete(DeleteView):
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('post_list')
+
+class CategoryList(ListView):
+    model = Category
+    template_name = 'category_list.html'
+    context_object_name = 'categories'
+    paginate_by = 10
+
+@login_required
+def subscribe_category(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    obj, created = CategorySub.objects.get_or_create(
+        user=request.user,
+        category=category
+    )
+    print("CREATED:", created)
+    print("COUNT:", CategorySub.objects.count())
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+@login_required
+def unsubscribe_category(request, category_id):
+    CategorySub.objects.filter(
+        user=request.user,
+        category_id=category_id
+    ).delete()
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def category_view(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+
+    is_subscribed = False
+    if request.user.is_authenticated:
+        is_subscribed = CategorySub.objects.filter(
+            user=request.user,
+            category=category
+        ).exists()
+
+    return render(request, 'category.html', {
+        'category': category,
+        'is_subscribed': is_subscribed,
+    })
