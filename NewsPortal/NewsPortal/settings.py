@@ -83,7 +83,6 @@ AUTHENTICATION_BACKENDS = [
 
 
 
-#WSGI_APPLICATION = 'NewsPortal.wsgi.application'
 
 
 # Database
