@@ -1,17 +1,17 @@
 from django.db.models.signals import post_save
 from .models import Post
-from .utils import notify_subscribers
 from django.dispatch import receiver
 from allauth.account.signals import user_signed_up
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.conf import settings
+from .tasks import send_new_post_email
 
 
 @receiver(post_save, sender=Post)
 def post_created(sender, instance, created, **kwargs):
     if created:
-        notify_subscribers(instance)
+        send_new_post_email.delay(instance.id)
 
 
 @receiver(user_signed_up)

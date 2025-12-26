@@ -5,7 +5,6 @@ from django.views.generic import *
 from .forms import PostForm
 from .models import *
 from .filters import *
-from .utils import *
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
