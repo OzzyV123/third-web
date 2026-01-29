@@ -1,0 +1,2 @@
+2026-01-29 17:02:44,448 | INFO | autoreload | Watching for file changes with StatReloader
+2026-01-29 17:03:40,108 | INFO | autoreload | D:\projects\django proj\third-web\NewsPortal\NewsPortal\settings.py changed, reloading.
